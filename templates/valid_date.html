@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %} Exercise #1.4: Valid Date {% endblock %}
+
+{% block description %} Calculate the sum, difference, product, and quotient of 2 - 3 numbers{% endblock %}
+
+{% block content %}
+
+<p>The date given was: {{ year }}-{{ month }}-{{ day }}</p>
+<p> The date is: {% if not is_valid %}in{% endif %}valid </p>
+{% endblock %}

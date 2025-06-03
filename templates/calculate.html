@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} Exercise #1.3: Calculate {% endblock %}
+
+{% block description %} Calculate the sum, difference, product, and quotient of 2 - 3 numbers{% endblock %}
+
+{% block content %}
+<p>The numbers given were: {{ numbers|join:", " }}</p>
+
+
+<table>
+    <tr>
+        <th>Operation</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td>Sum</td>
+        <td>{{ sum }}</td>
+    </tr>
+    <tr>
+        <td>Product</td>
+        <td>{{ product }}</td>
+    </tr>
+    <tr>
+        <td>Difference</td>
+        <td>{{ difference }}</td>
+    </tr>
+    <tr>
+        <td>Quotient</td>
+        <td>{{ quotient }}</td>
+    </tr>
+{% endblock %}

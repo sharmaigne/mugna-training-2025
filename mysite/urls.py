@@ -18,15 +18,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from mysite.views import index, current_datetime, current_datetime_plus, calculate, is_valid_date
+from mysite.views import (
+    index,
+    current_datetime,
+    datetime_offset,
+    calculate,
+    is_valid_date,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", index, name="index"),
     path("time/", current_datetime, name="current_datetime"),
-    path("time/plus/<int:offset>/", current_datetime_plus),
-
+    path("time/plus/<int:offset>/", datetime_offset),
     path("math/<path:numbers>/", calculate, name="calculate_multiple"),
-
-    path("valid-date/<int:year>/<int:month>/<int:day>", is_valid_date)
+    path("valid-date/<int:year>/<int:month>/<int:day>", is_valid_date),
 ]
