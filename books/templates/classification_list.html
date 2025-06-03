@@ -1,0 +1,15 @@
+{% extends "books_books_base.html" %} {% block title %} List of Classifications
+{% endblock %} {% block description %} List of all classifications in the
+library {% endblock %} {% block content %}
+<ul>
+  {% for classification in classifications %}
+  <li>
+    <a href="classifications/{{ classification.pk }}"
+      >{{ classification.name }}</a
+    >
+  </li>
+  {% empty %}
+  <li>No classifications available.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

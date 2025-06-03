@@ -1,0 +1,16 @@
+{% extends "books_base.html" %} {% comment %} page where all the books are
+listed and {% endcomment %} {% block title %} List of Books {% endblock %} {%
+block description %} List of all books in the library {% endblock %} {% block
+content %}
+<h1>List of Books</h1>
+<ul>
+  {% for book in books %}
+  <li>
+    <a href="{{book.pk}}">{{ book.title }}</a> by {{ book.authors.all|join:", "
+    }}
+  </li>
+  {% empty %}
+  <li>No books available.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

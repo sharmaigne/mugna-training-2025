@@ -1,0 +1,17 @@
+{% extends "books_base.html" %}
+
+{% block title %} {{classification}} {% endblock %}
+
+{% block content %}
+    <p><strong>Name: </strong> {{classification.name}}</p>
+    <p><strong>Code: </strong> {{classification.code}}</p>
+    <p><strong>Description: </strong> {{classification.description}}</p>
+    <p>Books in this classification:</p>
+    <ul>
+        {% for book in classification.books.all %}
+            <li><a href="/books/{{book.pk}}">{{ book.title }}</a></li>
+        {% empty %}
+            <li>No books available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

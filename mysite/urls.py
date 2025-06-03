@@ -26,6 +26,8 @@ from mysite.views import (
     is_valid_date,
 )
 
+from books.views import list_books, book_detail, author_detail, classification_list, classification_detail
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", index, name="index"),
@@ -33,4 +35,10 @@ urlpatterns = [
     path("time/plus/<int:offset>/", datetime_offset),
     path("math/<path:numbers>/", calculate, name="calculate_multiple"),
     path("valid-date/<int:year>/<int:month>/<int:day>", is_valid_date),
+
+    path("books/", list_books, name="list_books"),
+    path("books/<int:book_pk>/", book_detail, name="book_detail"),
+    path("books/authors/<int:author_pk>/", author_detail, name="author_detail"),
+    path("books/classifications", classification_list, name="classification_list"),
+    path("books/classifications/<int:classification_pk>/", classification_detail, name="classification_detail"),
 ]
