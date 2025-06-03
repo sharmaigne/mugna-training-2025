@@ -1,6 +1,7 @@
 from django.http import HttpResponse, Http404
 import datetime
 from math import prod
+from functools import reduce
 
 
 def index(request):
@@ -38,11 +39,12 @@ def calculate(request, numbers):
     product = prod(numbers)
 
     difference = (2*numbers[0]) - total_sum # equivalent to numbers[0] - (total_sum - numbers[0])
-    quotient = (
-        numbers[0] / numbers[1]
-        if len(numbers) == 2
-        else numbers[0] / (numbers[1] * numbers[2])
-    )
+    
+    # zero check
+    if 0 in numbers[1:]:
+        raise Http404("Cannot divide by zero")
+    
+    quotient = reduce(lambda x, y: x / y, numbers) if len(numbers) > 1 else numbers[0]
 
     html = (
         "<html><body>Sum: %s, Product: %s, Difference: %s, Quotient: %s</body></html>"
