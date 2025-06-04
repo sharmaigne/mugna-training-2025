@@ -26,7 +26,7 @@ from mysite.views import (
     is_valid_date,
 )
 
-from books.views import list_books, book_detail, author_detail, classification_list, classification_detail
+import books.views as bv
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -36,9 +36,17 @@ urlpatterns = [
     path("math/<path:numbers>/", calculate, name="calculate_multiple"),
     path("valid-date/<int:year>/<int:month>/<int:day>", is_valid_date),
 
-    path("books/", list_books, name="list_books"),
-    path("books/<int:book_pk>/", book_detail, name="book_detail"),
-    path("books/authors/<int:author_pk>/", author_detail, name="author_detail"),
-    path("books/classifications", classification_list, name="classification_list"),
-    path("books/classifications/<int:classification_pk>/", classification_detail, name="classification_detail"),
+    path("books/", bv.list_books, name="list_books"),
+    path("books/<int:book_pk>/", bv.book_detail, name="book_detail"),
+    path("books/authors/<int:author_pk>/", bv.author_detail, name="author_detail"),
+    path("books/classifications", bv.classification_list, name="classification_list"),
+    path("books/classifications/<int:classification_pk>/", bv.classification_detail, name="classification_detail"),
+
+    path("books/authors/", bv.authors),
+    path("books/publishers/", bv.publishers),
+
+    # for books and publishers
+    path("books/<str:resource_type>/create/", bv.create_resource, name="create_resource"),
+    path("books/<str:resource_type>/update/<int:pk>/", bv.update_resource, name="update_resource"),
+    path("books/<str:resource_type>/delete/<int:pk>/", bv.delete_resource, name="delete_resource"),
 ]

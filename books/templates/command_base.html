@@ -1,0 +1,28 @@
+<h2>{{resource_type}}</h2>
+
+{% block searchbar %}
+    <form method="get" >
+        {% csrf_token %}
+        {{ search_form}}
+
+    <input type="submit" value="Search">
+    </form>
+{% endblock %}
+
+{% block list %}
+<ul>
+  {% for row in rows %}
+  <li>
+    {% if resource_type == "authors" %}
+    <a href="{% url 'author_detail' row.id %}">{{ row }}</a>
+    {% elif resource_type == "publishers" %}
+    <p>{{row}}</p>
+    {% elif resource_type == "books" %} {% endif %}
+  </li>
+
+    <li>
+      {% comment %} <a href="{% url 'update' resource_type row.pk %}">Edit</a>
+      <a href="{% url 'delete' resource_type row.pk %}">Delete</a> {% endcomment %}
+    </li>
+  {% endfor %} {% endblock %}
+</ul>
