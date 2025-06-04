@@ -16,7 +16,7 @@ class Publisher(models.Model):
 class Author(models.Model):
     first_name = models.CharField(_("First Name"), max_length=30)
     last_name = models.CharField(_("Last Name"), max_length=40)
-    email = models.EmailField(_("Email"))
+    email = models.EmailField(_(" e-mail"))
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
