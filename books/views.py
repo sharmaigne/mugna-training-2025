@@ -4,6 +4,13 @@ from books.forms import BookForm, PublisherForm, SearchForm
 from books.models import Author, Classification, Book, Publisher
 from django.db.models import Q
 
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.decorators import user_passes_test
+
+def staff_required(view):
+    return user_passes_test(lambda u: u.is_staff, login_url="login")(view)
+
 RESOURCE_MAP = {
     "book": {
         "model": Book,
@@ -15,6 +22,7 @@ RESOURCE_MAP = {
     },
 }
 
+@login_required
 def list_books(request):
     """
     View to list all books. When book is clicked, it redirects to the book detail page.
@@ -24,6 +32,7 @@ def list_books(request):
     return render(request, "list_books.html", {"books": books})
 
 
+@login_required
 def book_detail(request, book_pk):
     """
     View to display details of a specific book.
@@ -32,7 +41,7 @@ def book_detail(request, book_pk):
     book = Book.objects.get(pk=book_pk)
     return render(request, "book_detail.html", {"book": book})
 
-
+@login_required
 def author_detail(request, author_pk):
     """
     View to display details of a specific author.
@@ -43,7 +52,7 @@ def author_detail(request, author_pk):
     author = Author.objects.get(pk=author_pk)
     return render(request, "author_detail.html", {"author": author})
 
-
+@login_required
 def classification_list(request):
     """
     View to list all classifications.
@@ -166,7 +175,7 @@ def publishers(request):
         },
     )
 
-
+@staff_required
 def create_resource(request, resource_type):
     resource_config = RESOURCE_MAP.get(resource_type)
     if not resource_config:
@@ -187,6 +196,7 @@ def create_resource(request, resource_type):
         "resource_type": resource_type
     })
 
+@staff_required
 def update_resource(request, resource_type, pk):
     resource_config = RESOURCE_MAP.get(resource_type)
     if not resource_config:
@@ -210,6 +220,7 @@ def update_resource(request, resource_type, pk):
         "resource": resource
     })
 
+@staff_required
 def delete_resource(request, resource_type, pk):
     resource_config = RESOURCE_MAP.get(resource_type)
     if not resource_config:

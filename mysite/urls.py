@@ -17,6 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 
 from mysite.views import (
     index,
@@ -26,8 +27,6 @@ from mysite.views import (
     is_valid_date,
 )
 
-import books.views as bv
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", index, name="index"),
@@ -36,17 +35,6 @@ urlpatterns = [
     path("math/<path:numbers>/", calculate, name="calculate_multiple"),
     path("valid-date/<int:year>/<int:month>/<int:day>", is_valid_date),
 
-    path("books/", bv.list_books, name="list_books"),
-    path("books/<int:book_pk>/", bv.book_detail, name="book_detail"),
-    path("books/authors/<int:author_pk>/", bv.author_detail, name="author_detail"),
-    path("books/classifications", bv.classification_list, name="classification_list"),
-    path("books/classifications/<int:classification_pk>/", bv.classification_detail, name="classification_detail"),
-
-    path("books/authors/", bv.authors),
-    path("books/publishers/", bv.publishers),
-
-    # for books and publishers
-    path("books/<str:resource_type>/create/", bv.create_resource, name="create_resource"),
-    path("books/<str:resource_type>/update/<int:pk>/", bv.update_resource, name="update_resource"),
-    path("books/<str:resource_type>/delete/<int:pk>/", bv.delete_resource, name="delete_resource"),
+    path("", include("accounts.urls")),
+    path("books/", include("books.urls")),
 ]

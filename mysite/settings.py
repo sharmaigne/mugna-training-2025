@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django_extensions",
 
     # Add apps here
-    "books",  
+    "books", "accounts",
 ]
 
 MIDDLEWARE = [
@@ -54,6 +54,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "mysite.urls"
+
+LOGIN_URL = "login"             # where @login_required sends anonymous users
+LOGIN_REDIRECT_URL = "list_books"  # after successful login
+LOGOUT_REDIRECT_URL = "login"      # after logout
 
 TEMPLATES = [
     {
